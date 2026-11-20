@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kuis Bahasa Inggris Kelas 6 — ASAS Semester 1</title>
+<style>
+:root{--blue:#174a83;--pale:#eaf3ff;--ink:#172334;--line:#d8e1ec}*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:920px;margin:28px auto;padding:0 16px}.hero{background:linear-gradient(135deg,#174a83,#337bc4);color:white;padding:26px;border-radius:18px;margin-bottom:18px}.hero h1{margin:0 0 5px;font-size:clamp(23px,4vw,32px)}.hero p{margin:0}.student,.section,.result{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}.student label{font-weight:700;display:block;margin-bottom:7px}.student input{width:100%;padding:12px;border:1px solid #b9c8d9;border-radius:9px;font:inherit}.section h2{font-size:20px;margin:0 0 6px;color:var(--blue)}.instructions{color:#526477;font-size:14px;margin-bottom:14px}.q{padding:13px 0;border-top:1px solid #edf1f6}.q:first-of-type{border-top:0}.q p{margin:0 0 9px;font-weight:600}.opt{display:block;margin:7px 0;padding:8px 10px;border-radius:8px;background:#f7f9fc;cursor:pointer}.opt:hover{background:var(--pale)}input[type=radio],input[type=checkbox]{margin-right:8px;accent-color:var(--blue)}select{padding:9px;border:1px solid #c7d2df;border-radius:8px;font:inherit}.btn{background:var(--blue);color:white;border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn.secondary{background:#4c627a;margin-left:8px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.result{display:none}.result h2{margin-top:0;color:var(--blue)}.small{font-size:13px;color:#5b6a7b}.matching{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}.matchrow{border-top:1px solid #edf1f6;padding:10px 0}.feedback{font-size:14px;margin-top:8px}.correct{color:#167344}.wrong{color:#b42318}@media print{body{background:#fff}.btn,.actions{display:none}.wrap{margin:0}.hero{background:#fff;color:#000;border:1px solid #ccc}}
+</style></head><body><div class="wrap"><header class="hero"><h1>English Quiz — Grade 6</h1><p>ASAS Semester 1 • Academic Year 2026/2027</p><p>45 questions | Read carefully and choose the best answer.</p></header>
+<div class="student"><label for="studentName">Nama Siswa</label><input id="studentName" placeholder="Tuliskan nama lengkap siswa" required></div>
+<form id="quiz">
+<section class="section"><h2>Part A — Multiple Choice (1–25)</h2><div class="instructions">Choose one correct answer.</div><div id="mc"></div></section>
+<section class="section"><h2>Part B — Multiple Answers (26–30)</h2><div class="instructions">Choose all correct answers. More than one answer may be correct.</div><div id="multi"></div></section>
+<section class="section"><h2>Part C — Matching (31–35)</h2><div class="instructions">Match each sentence with the correct word or phrase.</div><div id="match"></div></section>
+<section class="section"><h2>Part D — Fill in the Blanks (36–40)</h2><div class="instructions">Type the correct word in each blank.</div><div id="fill"></div></section>
+<section class="section"><h2>Part E — True or False (41–45)</h2><div class="instructions">Tick Benar (True) or Salah (False). This section replaces essay questions.</div><div id="tf"></div></section>
+<div class="actions"><button class="btn" type="button" id="submitBtn">Kirim Jawaban & Nilai</button><button class="btn secondary" type="reset" id="resetBtn">Reset</button></div>
+</form><div class="result" id="result"><h2>Hasil Kuis</h2><div id="scoreText"></div><p id="emailNote" class="small"></p><button class="btn" id="emailBtn" type="button">Buka Email untuk Mengirim Nilai</button></div>
+<p class="small">Catatan: tombol email membuka aplikasi email dengan rekap nilai yang sudah terisi. Untuk pengiriman otomatis tanpa membuka email, kuis perlu dihubungkan ke layanan/backend pengiriman formulir.</p></div>
+<script>
+const mcQs=[
+['Which vegetable is orange and has a lot of vitamin A?',['Carrot','Cabbage','Cucumber','Spinach'],0],
+['A cucumber is usually ...',['purple and sweet','green and fresh','blue and salty','red and hot'],1],
+['“Saya suka bayam.” in English is ...',['I hate spinach.','I like spinach.','I eat cabbage.','I have carrots.'],1],
+['Arrange the words: “like / I / potatoes / do not”',['I potatoes do not like.','Do not I like potatoes.','I do not like potatoes.','Potatoes not I like.'],2],
+['Which vegetable is leafy and often green?',['Lettuce','Potato','Carrot','Onion'],0],
+['When should you wash your hands?',['Only on Sundays','Before eating','Never after playing','Only at school'],1],
+['You sneeze. What should you do?',['Sneeze toward a friend','Cover your mouth and nose','Keep your hands dirty','Shout loudly'],1],
+['“Soap is used to clean our hands.” The meaning of soap is ...',['Handuk','Sikat','Sabun','Pasta gigi'],2],
+['We should brush our teeth ...',['twice a day','once a month','after one year','only when we play'],0],
+['Washing hands with soap is a good ...',['hobby','hygiene habit','game','animal'],1],
+['A mammal is an animal that usually ...',['has feathers','feeds its babies with milk','has six legs','lays only eggs'],1],
+['At the zoo, visitors should ...',['feed every animal','throw rubbish','follow the rules','tease animals'],2],
+['Complete: “Yesterday, we ___ the elephants.”',['see','sees','saw','seeing'],2],
+['“Mereka bermain sepak bola kemarin.”',['They play football tomorrow.','They played football yesterday.','They are playing football.','They plays football yesterday.'],1],
+['Arrange: “went / We / zoo / to / the / yesterday”',['Yesterday zoo we went to.','We went to the zoo yesterday.','We the zoo yesterday went.','Went we zoo to yesterday.'],1],
+['Which game can be played by jumping over a rope?',['Chess','Jump rope','Hide and seek','Marbles'],1],
+['“Berdirilah dalam satu baris!” in English is ...',['Sit in a circle!','Stand in a line!','Run away!','Close your eyes!'],1],
+['What do you need to play badminton?',['A racket and shuttlecock','A frying pan','A pillow','A paintbrush'],0],
+['“Take turns” means ...',['berlari cepat','bergantian','berteriak','berhenti selamanya'],1],
+['Which activity uses a ball and two teams trying to score goals?',['Swimming','Football','Drawing','Reading'],1],
+['The past tense of “go” is ...',['goed','goes','went','going'],2],
+['Complete: “Last weekend, I ___ camping with my friends.”',['go','went','goes','going'],1],
+['Which is an extracurricular activity?',['English club','Taking a nap','Eating breakfast','Going home'],0],
+['Camping means ...',['sleeping in a tent outdoors','shopping in a mall','watching TV','cooking in a classroom'],0],
+['Arrange: “campfire / made / We / a / last night”',['We made a campfire last night.','Made we last night campfire.','A we campfire made last night.','We a last night made campfire.'],0]
+];
+const multiQs=[
+['Which are vegetables?',['Carrot','Spinach','Mango','Cabbage'],[0,1,3]],
+['Which are good hygiene habits?',['Wash hands','Brush teeth','Share dirty towels','Cover a sneeze'],[0,1,3]],
+['Which animals are mammals?',['Cow','Dolphin','Chicken','Cat'],[0,1,3]],
+['Which are game instructions?',['Take turns.','Run to the finish line.','Wash the dishes.','Throw the ball.'],[0,1,3]],
+['Which activities can you do while camping?',['Put up a tent','Make a campfire safely','Sleep in a sleeping bag','Do homework on a computer all night'],[0,1,2]]
+];
+const matchQs=[['I wash my hands before eating.','Hand hygiene'],['A lion has four legs and eats meat.','Mammal'],['Jump over the rope!','Game instruction'],['We sang songs around the campfire.','Camping activity'],['I enjoy drawing after school.','Extracurricular activity']];
+const matchOptions=['Hand hygiene','Mammal','Game instruction','Camping activity','Extracurricular activity'];
+const fillQs=[['Wash your hands with ___ and water.','soap'],['I brush my teeth ___ a day. (two times)','twice'],['The past tense of “visit” is ___.','visited'],['Yesterday, the students ___ animals at the zoo. (see)','saw'],['We sleep in a ___ when we go camping.','tent']];
+const tfQs=[['There are many kinds of vegetables, such as carrots and spinach.',true],['We should sneeze openly without covering our mouth.',false],['A dolphin is a mammal.',true],['“Take turns” means everyone waits and plays in order.',true],['The past tense of “play” is “played.”',true]];
+function renderChoice(container,qs,checkbox=false,start=1){container.innerHTML=qs.map((q,i)=>`<div class="q"><p>${start+i}. ${q[0]}</p>${q[1].map((o,j)=>`<label class="opt"><input type="${checkbox?'checkbox':'radio'}" name="${checkbox?'multi':'mc'}${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('')}</div>`).join('')}
+renderChoice(document.getElementById('mc'),mcQs,false,1);renderChoice(document.getElementById('multi'),multiQs,true,26);
+document.getElementById('match').innerHTML=matchQs.map((q,i)=>`<div class="matchrow matching"><div>${31+i}. ${q[0]}</div><select name="match${i}"><option value="">-- Choose --</option>${matchOptions.map(x=>`<option>${x}</option>`).join('')}</select></div>`).join('');
+document.getElementById('fill').innerHTML=fillQs.map((q,i)=>`<div class="q"><label><b>${36+i}. ${q[0]}</b><br><input name="fill${i}" placeholder="Your answer" style="padding:9px;border:1px solid #c7d2df;border-radius:8px;margin-top:7px"></label></div>`).join('');
+document.getElementById('tf').innerHTML=tfQs.map((q,i)=>`<div class="q"><p>${41+i}. ${q[0]}</p><label class="opt"><input type="radio" name="tf${i}" value="true"> Benar (True)</label><label class="opt"><input type="radio" name="tf${i}" value="false"> Salah (False)</label></div>`).join('');
+let lastSummary='';
+document.getElementById('submitBtn').addEventListener('click',()=>{let name=document.getElementById('studentName').value.trim();if(!name){alert('Silakan isi nama siswa terlebih dahulu.');document.getElementById('studentName').focus();return;}let score=0,details=[];
+mcQs.forEach((q,i)=>{let v=document.querySelector(`input[name="mc${i}"]:checked`);let ok=v&&+v.value===q[2];if(ok)score++;details.push(`${i+1}. ${ok?'Benar':'Salah'} (jawaban: ${q[1][q[2]]})`)});
+multiQs.forEach((q,i)=>{let vs=[...document.querySelectorAll(`input[name="multi${i}"]:checked`)].map(x=>+x.value);let ok=vs.length===q[2].length&&vs.every(x=>q[2].includes(x));if(ok)score++;details.push(`${26+i}. ${ok?'Benar':'Salah'} (jawaban: ${q[2].map(x=>q[1][x]).join(', ')})`)});
+matchQs.forEach((q,i)=>{let v=document.querySelector(`[name="match${i}"]`).value;let ok=v===q[1];if(ok)score++;details.push(`${31+i}. ${ok?'Benar':'Salah'} (jawaban: ${q[1]})`)});
+fillQs.forEach((q,i)=>{let v=document.querySelector(`[name="fill${i}"]`).value.trim().toLowerCase();let ok=v===q[1].toLowerCase();if(ok)score++;details.push(`${36+i}. ${ok?'Benar':'Salah'} (jawaban: ${q[1]})`)});
+tfQs.forEach((q,i)=>{let v=document.querySelector(`input[name="tf${i}"]:checked`);let ok=v&&v.value===String(q[1]);if(ok)score++;details.push(`${41+i}. ${ok?'Benar':'Salah'} (jawaban: ${q[1]?'Benar':'Salah'})`)});
+let pct=Math.round(score/45*100);lastSummary=`HASIL KUIS BAHASA INGGRIS KELAS 6\nNama: ${name}\nNilai: ${score}/45 (${pct})\n\nRincian:\n${details.join('\n')}`;
+document.getElementById('scoreText').innerHTML=`<p><b>${name}</b></p><p><strong style="font-size:28px">${score} / 45</strong> (${pct}%)</p><p>${pct>=90?'Excellent!':pct>=75?'Good job!':pct>=60?'Keep practicing!':'Keep learning and try again!'}</p><p class="small">Rekap jawaban siap dikirim melalui email.</p>`;
+document.getElementById('emailNote').textContent='Klik tombol email untuk membuka pesan baru ke sodieq2011@gmail.com dengan hasil kuis terlampir pada isi pesan.';document.getElementById('result').style.display='block';document.getElementById('result').scrollIntoView({behavior:'smooth'});});
+document.getElementById('emailBtn').addEventListener('click',()=>{if(!lastSummary)return;let url='mailto:sodieq2011@gmail.com?subject='+encodeURIComponent('Hasil Kuis Bahasa Inggris Kelas 6')+'&body='+encodeURIComponent(lastSummary);window.location.href=url;});
+document.getElementById('resetBtn').addEventListener('click',()=>{document.getElementById('result').style.display='none';lastSummary='';});
+</script></body></html>
